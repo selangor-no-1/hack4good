@@ -8,6 +8,22 @@ export const EVENTS = [
 		image:
 			"https://media.licdn.com/dms/image/D5610AQEHbUGSMIxS_g/image-shrink_800/0/1706522427063?e=1707562800&v=beta&t=_ZBNtuuncM2wjpW_smMC752KyGDC5QUg4ykk4wId00Y",
 		date: "2024-02-03",
+		volunteers: [
+			{
+			  id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+			  name: "Anderson Leong",
+			  date_of_birth: "2021-02-03",
+			  email: "andersonleong@gmail.com",
+			  contact_number: "91239138",
+			},
+			{
+			  id: "9a2a4189-2e37-4475-93b9-108f44087a43",
+			  name: "Brexton Ho Jia Jinn",
+			  date_of_birth: "2020-01-01",
+			  email: "brextonho@gmail.com",
+			  contact_number: "98371848",
+			},
+		  ],
 	},
 	{
 		id: 2,
@@ -18,6 +34,22 @@ export const EVENTS = [
 		image:
 			"https://media.licdn.com/dms/image/D5610AQE5QAP54sqBew/image-shrink_800/0/1706608908468?e=1707562800&v=beta&t=krO25r5vYt1hhKv011KyS2li-zGOjCP0ST5vgIp28vk",
 		date: "2024-01-12",
+		volunteers: [
+			{
+			  id: "7570a9a9-5da5-4513-9729-f335745a968a",
+			  name: "Chris Ong Weng Qi",
+			  date_of_birth: "2020-08-12",
+			  email: "chriswengqi@gmail.com",
+			  contact_number: "91391941",
+			},
+			{
+			  id: "9a2a4189-2e37-4475-93b9-108f44087a43",
+			  name: "Brexton Ho Jia Jinn",
+			  date_of_birth: "2020-01-01",
+			  email: "brextonho@gmail.com",
+			  contact_number: "98371848",
+			},
+		]
 	},
 	{
 		id: 3,
@@ -28,6 +60,29 @@ export const EVENTS = [
 		image:
 			"https://media.licdn.com/dms/image/D5610AQGfki8DlgCSxA/image-shrink_800/0/1706659203997?e=1707562800&v=beta&t=XBbwf3NudCzDVjb2ElXicvPBsKk_fZOhI-pXbbN8d9s",
 		date: "2023-12-07",
+		volunteers: [
+			{
+			  id: "7570a9a9-5da5-4513-9729-f335745a968a",
+			  name: "Chris Ong Weng Qi",
+			  date_of_birth: "2020-08-12",
+			  email: "chriswengqi@gmail.com",
+			  contact_number: "91391941",
+			},
+			{
+			  id: "7685a972-9712-4e22-9328-83236b75c37d",
+			  name: "Hew Li Yang",
+			  date_of_birth: "1999-06-12",
+			  email: "hewliyang@gmail.com",
+			  contact_number: "98122803",
+			},
+			{
+			  id: "9a2a4189-2e37-4475-93b9-108f44087a43",
+			  name: "Brexton Ho Jia Jinn",
+			  date_of_birth: "2020-01-01",
+			  email: "brextonho@gmail.com",
+			  contact_number: "98371848",
+			},
+		  ],
 	},
 ];
 

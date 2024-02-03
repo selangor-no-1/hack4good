@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Event } from "$lib/types";
+  import DataTable from "./data-table.svelte";
   export let data;
   const { events }: { events: Event[] } = data;
   const currentEvent = events.filter(
@@ -24,4 +25,8 @@
       <p class="text-gray-700">{currentEvent.description}</p>
     </div>
   </div>
+</div>
+<div class="container mx-auto py-10">
+  Volunteers
+  <DataTable data={currentEvent.volunteers} />
 </div>
