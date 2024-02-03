@@ -5,6 +5,7 @@ export type Event = {
 	description: string;
 	image: string;
 	date: string;
+	volunteers: Volunteer[];
 };
 
 // this is a dummy type just for to demo Chart.JS
@@ -16,3 +17,11 @@ export type User = {
 	weight: number;
 	height: number;
 };
+
+export type Volunteer = {
+    id: string;
+    name: string;
+    date_of_birth: string;
+    email: string;
+    contact_number: string;
+  };
