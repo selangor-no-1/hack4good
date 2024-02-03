@@ -3,4 +3,6 @@
   import "@fontsource-variable/manrope";
 </script>
 
-<slot />
+<main class="p-8">
+  <slot />
+</main>
