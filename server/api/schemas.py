@@ -14,7 +14,7 @@ class EventSchema(ModelSchema):
 
     class Meta:
         model = Event
-        fields = ("id", "slug", "description", "image", "date", "volunteers")
+        fields = ("id", "name", "slug", "description", "image", "date", "volunteers")
 
 
 class Error(Schema):
