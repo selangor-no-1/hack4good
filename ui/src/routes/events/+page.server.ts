@@ -1,5 +1,7 @@
+import { EVENTS } from "$lib/mockData";
+
 export function load() {
-    return {
-        greeting: "bye"
-    }
+	return {
+		events: EVENTS,
+	};
 }
