@@ -1,3 +1,4 @@
+from datetime import datetime
 from random import choice
 
 IMAGES = [
@@ -11,3 +12,8 @@ IMAGES = [
 
 def get_random_image_link():
     return choice(IMAGES)
+
+
+def hours_diff(start_time: datetime, end_time: datetime) -> int | float:
+    time_diff = end_time - start_time
+    return time_diff.total_seconds() / 3600

@@ -1,16 +1,20 @@
-from collections import defaultdict
 import datetime as _dt
+from collections import defaultdict
 from datetime import datetime
 from typing import List, Optional
 from ninja_extra import NinjaExtraAPI, api_controller, route
 from api.models import Volunteer, Event
 from api.schemas import (
     ManhoursUnit,
+    UniqueVolunteers,
+    VolunteerContributionsSchema,
     VolunteerSchema,
     EventSchemaWithoutVolunteers,
     Error,
 )
 from django.shortcuts import get_object_or_404
+
+from api.utils import hours_diff
 
 app = NinjaExtraAPI()
 
@@ -31,6 +35,16 @@ class VolunteerController:
         props = props.model_dump()
         volunteer = Volunteer.objects.create(**props)
         return volunteer
+
+    @route.get("{id}/events", response=VolunteerContributionsSchema)
+    def get_events_by_volunteer(self, id: str):
+        volunteer = get_object_or_404(Volunteer, id=id)
+        events = volunteer.events.all()
+        hours = 0
+        for event in events:
+            hours += hours_diff(end_time=event.end_time, start_time=event.start_time)
+
+        return VolunteerContributionsSchema(events=events, hours=hours)
 
 
 @api_controller("events/", tags=["Events"], permissions=[])
@@ -105,14 +119,36 @@ class AnalyticsController:
         res = defaultdict(lambda: 0)
         for event in Q.all():
             event_date = event.date
-            time_diff = event.end_time - event.start_time
-            total_hrs = time_diff.total_seconds() / 3600
+            total_hrs = hours_diff(end_time=event.end_time, start_time=event.start_time)
             res[event_date] += total_hrs
 
         ts = []
         for date, hours in res.items():
             ts.append(ManhoursUnit(date=date, hours=hours))
         return ts
+
+    @route.get("volunteers", response=UniqueVolunteers)
+    def get_unique_volunteers(
+        self,
+        event_slug: Optional[str] = None,
+        location: Optional[str] = None,
+        before_date: Optional[_dt.date] = datetime.now().date(),
+    ):
+        Q = Event.objects.all()
+        if location:
+            Q = Q.filter(location=location)
+        if before_date:
+            Q = Q.filter(date__lt=before_date)
+        if event_slug:
+            Q = Q.filter(slug=event_slug)
+
+        res = set()
+        for event in Q.all():
+            volunteers = event.volunteers
+            for volunteer in volunteers.all():
+                res.add(volunteer.id)
+
+        return UniqueVolunteers(unique_volunteers=len(res))
 
 
 app.register_controllers(VolunteerController, EventController, AnalyticsController)
