@@ -1,93 +1,22 @@
 <script lang="ts">
-	import { fade } from "svelte/transition";
-	import Chart from "chart.js/auto";
-	import { Button } from "$lib/components/ui/button";
+	import { BarChart3, Users, Hourglass } from "lucide-svelte";
+	import * as Card from "$lib/components/ui/card";
+	import DateRangePicker from "$lib/DateRangePicker.svelte";
+	import AnalyticsGraph from "$lib/AnalyticsGraph.svelte";
+	import AnalyticsCards from "$lib/AnalyticsCards.svelte";
 
 	export let data;
-	let ctx: HTMLCanvasElement | undefined;
-	let chart: Chart | undefined;
-	let showAge = true;
-	let showWeight = true;
-	let showHeight = true;
-	let chartType: "line" | "bar" = "line";
-	$: if (ctx) {
-		if (chart) {
-			chart.destroy();
-		}
-
-		chart = new Chart(ctx, {
-			type: chartType,
-			data: {
-				labels: data.users.map((user) => `${user.firstName} ${user.lastName}`),
-				datasets: [
-					{
-						label: "User's age",
-						data: data.users.map(({ age }) => age),
-						borderWidth: 2,
-						hidden: !showAge,
-					},
-					{
-						label: "User's height",
-						data: data.users.map(({ height }) => height),
-						borderWidth: 2,
-						hidden: !showHeight,
-					},
-					{
-						label: "User's weight",
-						data: data.users.map(({ weight }) => weight),
-						borderWidth: 2,
-						hidden: !showWeight,
-						indexAxis: "x",
-					},
-				],
-			},
-			options: {
-				animation: false,
-				scales: {
-					y: {
-						beginAtZero: true,
-					},
-				},
-				maintainAspectRatio: false,
-			},
-		});
-	}
+	const { users } = data
 </script>
 
-<h1 class="text-xl md:text-2xl font-bold mb-4">Dashboard</h1>
-<div class="w-[600px] h-[400px] border rounded-lg p-3">
-	<canvas bind:this={ctx} width="100" height="50" in:fade />
-</div>
-<div>
-	<select bind:value={chartType}>
-		<option value="line">Line</option>
-		<option value="bar">Bar</option>
-	</select>
+
+<div class="flex items-center justify-between space-y-2">
+	<h2 class="text-3xl font-bold tracking-tight">Dashboard</h2>
+	<div class="flex items-center space-x-2">
+		<p class="me-2">Dates: </p>
+		<DateRangePicker />
+	</div>
 </div>
 
-<div>
-	<label for="age">
-		<input type="checkbox" bind:checked={showAge} id="age" />
-		<span>Show age</span>
-	</label>
-</div>
-
-<div>
-	<label for="height">
-		<input type="checkbox" bind:checked={showHeight} id="height" />
-		<span>Show height</span>
-	</label>
-</div>
-
-<div>
-	<label for="weight">
-		<input type="checkbox" bind:checked={showWeight} id="weight" />
-		<span>Show Weight</span>
-	</label>
-</div>
-
-{#if ctx}
-	<a href={ctx.toDataURL()} target="_blank" download="graph.png">
-		<Button>Download Chart</Button>
-	</a>
-{/if}
+<AnalyticsCards />
+<AnalyticsGraph userData={users} />

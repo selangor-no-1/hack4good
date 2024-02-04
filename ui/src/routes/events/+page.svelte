@@ -11,12 +11,14 @@
 
 <div class="flex">
 	<h1 class="text-xl md:text-2xl font-bold mb-4">Events</h1>
+
 	<a href="/events/create" class="ml-auto">
-		<Button class="text-xs md:text-base h-8">
+		<Button class="text-xs md:text-base h-9">
 			<PlusCircle class="mr-2 h-4 w-4" />
-			New
+			New Event
 		</Button>
 	</a>
+
 </div>
 
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 w-full">
