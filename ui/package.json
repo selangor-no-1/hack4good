@@ -28,6 +28,7 @@
   "type": "module",
   "dependencies": {
     "@fontsource-variable/manrope": "^5.0.18",
+    "@internationalized/date": "^3.5.1",
     "bits-ui": "^0.16.0",
     "chart.js": "^4.4.1",
     "clsx": "^2.1.0",

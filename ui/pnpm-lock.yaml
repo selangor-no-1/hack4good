@@ -8,6 +8,9 @@ dependencies:
   '@fontsource-variable/manrope':
     specifier: ^5.0.18
     version: 5.0.18
+  '@internationalized/date':
+    specifier: ^3.5.1
+    version: 3.5.1
   bits-ui:
     specifier: ^0.16.0
     version: 0.16.0(svelte@4.2.9)
