@@ -10,6 +10,7 @@ class VolunteerSchema(ModelSchema):
         fields = ("id", "name", "date_of_birth", "email", "contact_number")
 
 
+
 class EventSchemaWithoutVolunteers(ModelSchema):
     # volunteers: List[VolunteerSchema]
 
