@@ -5,15 +5,16 @@ from typing import List, Optional
 from ninja_extra import NinjaExtraAPI, api_controller, route
 from api.models import Volunteer, Event
 from api.schemas import (
+    EventSchemaCreate,
     ManhoursUnit,
     UniqueVolunteers,
     VolunteerContributionsSchema,
     VolunteerSchema,
     EventSchemaWithoutVolunteers,
     Error,
+    VolunteerSchemaCreate,
 )
 from django.shortcuts import get_object_or_404
-
 from api.utils import hours_diff
 
 app = NinjaExtraAPI()
@@ -31,7 +32,7 @@ class VolunteerController:
         return volunteer
 
     @route.post("/", response={200: VolunteerSchema, 404: Error})
-    def create_volunteer(self, props: VolunteerSchema):
+    def create_volunteer(self, props: VolunteerSchemaCreate):
         props = props.model_dump()
         volunteer = Volunteer.objects.create(**props)
         return volunteer
@@ -73,7 +74,7 @@ class EventController:
         return event.volunteers
 
     @route.post("/", response=EventSchemaWithoutVolunteers)
-    def create_event(self, props: EventSchemaWithoutVolunteers):
+    def create_event(self, props: EventSchemaCreate):
         props = props.model_dump()
         event = Event.objects.create(**props)
         return event

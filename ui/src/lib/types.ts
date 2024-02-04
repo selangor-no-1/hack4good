@@ -3,6 +3,9 @@ export type Event = {
 	name: string;
 	slug: string;
 	description: string;
+	location: string;
+	startTime: string;
+	endTime: string;
 	image: string;
 	date: string;
 	volunteers: Volunteer[];
@@ -19,9 +22,9 @@ export type User = {
 };
 
 export type Volunteer = {
-    id: string;
-    name: string;
-    date_of_birth: string;
-    email: string;
-    contact_number: string;
-  };
+	id: string;
+	name: string;
+	date_of_birth: string;
+	email: string;
+	contact_number: string;
+};

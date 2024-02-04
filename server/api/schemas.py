@@ -11,8 +11,6 @@ class VolunteerSchema(ModelSchema):
 
 
 class EventSchemaWithoutVolunteers(ModelSchema):
-    # volunteers: List[VolunteerSchema]
-
     class Meta:
         model = Event
         fields = (
@@ -26,6 +24,26 @@ class EventSchemaWithoutVolunteers(ModelSchema):
             "start_time",
             "end_time",
         )
+
+
+class EventSchemaCreate(ModelSchema):
+    class Meta:
+        model = Event
+        fields = (
+            "name",
+            "location",
+            "description",
+            "image",
+            "date",
+            "start_time",
+            "end_time",
+        )
+
+
+class VolunteerSchemaCreate(ModelSchema):
+    class Meta:
+        model = Volunteer
+        fields = ("name", "date_of_birth", "email", "contact_number")
 
 
 class VolunteerContributionsSchema(Schema):
