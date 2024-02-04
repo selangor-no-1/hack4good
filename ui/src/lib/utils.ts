@@ -69,3 +69,26 @@ export function truncateDescriptionIfTooLong(description: string): string {
 	}
 	return description.slice(0, TRUNCATE_AT_CHAR) + "...";
 }
+
+export function createISOString(
+	dateString: string,
+	timeString: string
+): string {
+	// Parse date and time strings
+	const dateArray = dateString.split("-").map(Number);
+	const timeArray = timeString.split(":").map(Number);
+	console.log(timeArray);
+
+	// Create a new Date object
+	const isoDate = new Date(
+		dateArray[0], // Year
+		dateArray[1] - 1, // Month (months are 0-indexed in JavaScript)
+		dateArray[2], // Day
+		timeArray[0], // Hours
+		timeArray[1] // Minutes
+	);
+
+	isoDate.setHours(isoDate.getHours() + 8);
+
+	return isoDate.toISOString();
+}

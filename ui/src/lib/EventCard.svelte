@@ -7,7 +7,7 @@
 </script>
 
 <Card.Root
-	class="shadow-sm hover:scale-[102%] transition-all duration-[400ms] cursor-pointer"
+	class="shadow-lg hover:scale-[102%] transition-all duration-[400ms] cursor-pointer"
 >
 	<img alt="event" src={event.image} class="rounded-t-md" />
 	<Card.Header>
