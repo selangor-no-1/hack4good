@@ -96,5 +96,5 @@
 			<Form.Validation />
 		</Form.Item>
 	</Form.Field>
-	<Form.Button>Submit</Form.Button>
+	<Form.Button class="mt-3">Submit</Form.Button>
 </Form.Root>
