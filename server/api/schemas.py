@@ -10,7 +10,6 @@ class VolunteerSchema(ModelSchema):
         fields = ("id", "name", "date_of_birth", "email", "contact_number")
 
 
-
 class EventSchemaWithoutVolunteers(ModelSchema):
     # volunteers: List[VolunteerSchema]
 
@@ -29,9 +28,21 @@ class EventSchemaWithoutVolunteers(ModelSchema):
         )
 
 
-class ManhoursUnit(Schema):
-    date: _dt.date
+class VolunteerContributionsSchema(Schema):
+    events: List[EventSchemaWithoutVolunteers]
     hours: int | float
+
+
+class TimeseriesUnit(Schema):
+    date: _dt.date
+
+
+class ManhoursUnit(TimeseriesUnit):
+    hours: int | float
+
+
+class UniqueVolunteers(Schema):
+    unique_volunteers: int
 
 
 class Error(Schema):
