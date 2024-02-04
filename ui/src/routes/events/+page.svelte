@@ -11,9 +11,9 @@
 
 <div class="flex">
 	<h1 class="text-xl md:text-2xl font-bold mb-4">Events</h1>
-	<Button class="text-xs md:text-base ml-auto h-8">
+	<Button class="text-xs md:text-base ml-auto h-9">
 		<PlusCircle class="mr-2 h-4 w-4" />
-		New
+		New Event
 	</Button>
 </div>
 
