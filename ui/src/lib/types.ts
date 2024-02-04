@@ -4,8 +4,8 @@ export type Event = {
 	slug: string;
 	description: string;
 	location: string;
-	startTime: string;
-	endTime: string;
+	start_time: string;
+	end_time: string;
 	image: string;
 	date: string;
 	volunteers: Volunteer[];

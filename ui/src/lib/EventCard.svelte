@@ -7,13 +7,13 @@
 </script>
 
 <Card.Root
-	class="shadow-lg hover:scale-[102%] transition-all duration-[400ms] cursor-pointer"
+	class="shadow-lg hover:scale-[101%] transition-all duration-[400ms] cursor-pointer"
 >
 	<img alt="event" src={event.image} class="rounded-t-md" />
 	<Card.Header>
 		<Card.Title>{event.name}</Card.Title>
 		<Card.Description
-			>{truncateDescriptionIfTooLong(event.description)}
+			>{truncateDescriptionIfTooLong(event.date)}
 		</Card.Description>
 	</Card.Header>
 </Card.Root>

@@ -55,14 +55,14 @@
     }
   </script>
   
-  <div class="grid gap-4 mt-3 md:grid-cols-2 lg:grid-cols-7">
-    <div class="col-span-5 mt-3">
+  <div class="grid gap-4 mt-3 md:grid-cols-2 lg:grid-cols-12">
+    <div class="col-span-8 mt-3">
       <h2 class="font-bold">Overview</h2>
-      <div class="w-[61rem] h-[21rem] border rounded-lg mt-4 p-1">
-        <canvas bind:this={ctx} width="200" height="100" in:fade />
+      <div class="h-[21rem] 2xl:h-[21rem] border rounded-lg mt-4 p-1">
+        <canvas bind:this={ctx} in:fade />
       </div>
     </div>
-    <div class="pt-5 ms-2 mt-8 col-span-2">
+    <div class="pt-5 ms-5 mt-8 col-span-4">
       <select bind:value={chartType}>
         <option value="line">Line</option>
         <option value="bar">Bar</option>
