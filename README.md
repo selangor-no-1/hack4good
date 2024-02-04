@@ -24,3 +24,9 @@ cd ui/
 pnpm i
 pnpm run dev
 ```
+
+**todo**
+
+- [] event needs a `start_time` and `end_time`
+- [] track volunteer hours = sum of event(end_time - start_time) for all event in volunteer_events
+- []

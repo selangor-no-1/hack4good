@@ -1,7 +1,9 @@
-import { EVENTS } from "$lib/mockData";
+import { API_ENDPOINT } from "$lib/config"; // this should be a secret
 
-export function load() {
+export async function load({ fetch }) {
+	const res = await fetch(API_ENDPOINT + "events");
+	const events = await res.json();
 	return {
-		events: EVENTS,
+		events,
 	};
 }

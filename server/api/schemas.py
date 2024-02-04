@@ -1,4 +1,4 @@
-from typing import List
+# from typing import List
 from ninja import Schema, ModelSchema
 from api.models import Volunteer, Event
 
@@ -10,11 +10,11 @@ class VolunteerSchema(ModelSchema):
 
 
 class EventSchema(ModelSchema):
-    volunteers: List[VolunteerSchema]
+    # volunteers: List[VolunteerSchema]
 
     class Meta:
         model = Event
-        fields = ("id", "name", "slug", "description", "image", "date", "volunteers")
+        fields = ("id", "name", "slug", "description", "image", "date")
 
 
 class Error(Schema):
