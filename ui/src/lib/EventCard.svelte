@@ -9,7 +9,7 @@
 <Card.Root
 	class="shadow-lg hover:scale-[101%] transition-all duration-[400ms] cursor-pointer"
 >
-	<img alt="event" src={event.image} class="rounded-t-md" />
+	<img alt="event" loading="lazy" src={event.image} class="rounded-t-md" />
 	<Card.Header>
 		<Card.Title>{event.name}</Card.Title>
 		<Card.Description

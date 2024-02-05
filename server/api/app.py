@@ -1,4 +1,5 @@
 import datetime as _dt
+from pathlib import Path
 from collections import defaultdict
 from datetime import datetime
 from typing import List, Optional
@@ -16,8 +17,15 @@ from api.schemas import (
 )
 from django.shortcuts import get_object_or_404
 from api.utils import hours_diff
+from api.google_forms import GoogleFormConnector
+
+google_creds = Path("../svc-acc.json")
+
+if not google_creds.exists:
+    raise ValueError("Have you put `svc-acc.json` at the root of the project?")
 
 app = NinjaExtraAPI()
+gfc = GoogleFormConnector(google_creds)
 
 
 @api_controller("volunteers/", tags=["Volunteers"], permissions=[])
@@ -152,4 +160,17 @@ class AnalyticsController:
         return UniqueVolunteers(unique_volunteers=len(res))
 
 
-app.register_controllers(VolunteerController, EventController, AnalyticsController)
+@api_controller("forms/", tags=["Google Forms Connector"], permissions=[])
+class FormsController:
+    @route.get("details/{form_id}")
+    def get_form_details(self, form_id: str):
+        return gfc.fetch_form_details(form_id)
+
+    @route.get("responses/{form_id}")
+    def get_form_responses(self, form_id: str):
+        return gfc.fetch_form_responses(form_id)
+
+
+app.register_controllers(
+    VolunteerController, EventController, AnalyticsController, FormsController
+)
