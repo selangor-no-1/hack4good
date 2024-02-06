@@ -27,8 +27,8 @@
 			</p>
 			<p class="text-sm text-muted-foreground mb-2">
 				from {new Date(event.start_time).toLocaleString("en-SG")} to {new Date(
-					event.end_time.toLocaleString("en-SG")
-				)}
+					event.end_time
+				).toLocaleString("en-SG")}
 			</p>
 			<p class="text-sm text-muted-foreground mb-2">{event.location}</p>
 			<p>{event.description}</p>

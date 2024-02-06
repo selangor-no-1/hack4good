@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Event } from "$lib/types";
-	import EventCard from "$lib/EventCard.svelte";
+	import EventCard from "$lib/components/EventCard.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import { PlusCircle } from "lucide-svelte";
 
@@ -18,7 +18,6 @@
 			New Event
 		</Button>
 	</a>
-
 </div>
 
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 w-full">
