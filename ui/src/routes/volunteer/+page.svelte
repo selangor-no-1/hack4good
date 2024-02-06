@@ -40,7 +40,7 @@
 <div class="flex">
   <h1 class="text-xl md:text-2xl font-bold mb-4">Volunteers</h1>
 
-  <a href="/events/create" class="ml-auto">
+  <a href="/volunteer/create" class="ml-auto">
     <Button class="text-xs md:text-base h-9">
       <PlusCircle class="mr-2 h-4 w-4" />
       Add Volunteer
