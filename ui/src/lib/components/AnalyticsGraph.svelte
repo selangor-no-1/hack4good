@@ -128,7 +128,6 @@
 
 <section class="grid gap-4 mt-3 md:grid-cols-2 lg:grid-cols-12">
 	<div class="col-span-8 mt-3">
-		<h2 class="text-lg font-bold mb-6">Overview</h2>
 		<Card.Root>
 			<Card.Header>
 				<Card.Title>Metrics Over Time</Card.Title>
@@ -138,7 +137,7 @@
 			</Card.Content>
 		</Card.Root>
 	</div>
-	<div class="md:pt-5 ms-5 md:mt-11 col-span-4">
+	<div class="md:pt-5 ms-5 col-span-4">
 		<Select.Root>
 			<Select.Trigger class="w-[180px]">
 				<Select.Value placeholder="Chart Type" />

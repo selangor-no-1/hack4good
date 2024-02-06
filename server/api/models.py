@@ -22,6 +22,7 @@ class Volunteer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200)
     date_of_birth = models.DateField(null=True, blank=True)
+    date_created = models.DateField(auto_now_add=True)
     email = models.EmailField(null=True, blank=True)
     contact_number = models.CharField(max_length=8, null=True, blank=True)
 

@@ -1,8 +1,12 @@
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button";
-	import type { Event, Volunteer } from "$lib/types";
 	import DataTable from "./(components)/data-table.svelte";
+	import type { Event, Volunteer } from "$lib/types";
+	import { Input } from "$lib/components/ui/input";
+	import { Button } from "$lib/components/ui/button";
+	import { LoaderIcon } from "lucide-svelte";
+
 	export let data;
+	let isLoading = false;
 	const { event, volunteers }: { event: Event; volunteers: Volunteer[] } = data;
 </script>
 
@@ -36,6 +40,17 @@
 	</div>
 </div>
 <div class="mx-auto py-10 space-y-4">
+	<h2 class="text-xl font semibold mb-3">Google Form</h2>
+	<form class="flex w-full max-w-sm items-center space-x-2">
+		<Input type="email" placeholder="Google Form ID" />
+		<Button type="submit" on:click={() => (isLoading = true)}>
+			{#if isLoading}
+				<LoaderIcon class="animate-spin h-4 w-4" />
+			{:else}
+				Subscribe
+			{/if}
+		</Button>
+	</form>
 	<h2 class="text-xl font semibold mb-3">Volunteers</h2>
 	{#if volunteers.length > 0}
 		<DataTable data={volunteers} />
