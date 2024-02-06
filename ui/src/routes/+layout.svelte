@@ -1,7 +1,7 @@
 <script>
 	import "../app.pcss";
 	import "@fontsource-variable/manrope";
-	import Nav from "$lib/Nav.svelte";
+	import Nav from "$lib/components/Nav.svelte";
 </script>
 
 <main class="flex flex-col min-h-screen bg-white">

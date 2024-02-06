@@ -77,7 +77,6 @@ export function createISOString(
 	// Parse date and time strings
 	const dateArray = dateString.split("-").map(Number);
 	const timeArray = timeString.split(":").map(Number);
-	console.log(timeArray);
 
 	// Create a new Date object
 	const isoDate = new Date(
