@@ -17,7 +17,7 @@ from api.schemas import (
 )
 from django.shortcuts import get_object_or_404
 from api.utils import hours_diff
-from api.google_forms import GoogleFormConnector
+from api.google_forms import GoogleFormConnector, Form, Responses
 
 google_creds = Path("../svc-acc.json")
 
@@ -162,11 +162,11 @@ class AnalyticsController:
 
 @api_controller("forms/", tags=["Google Forms Connector"], permissions=[])
 class FormsController:
-    @route.get("details/{form_id}")
+    @route.get("details/{form_id}", response=Form)
     def get_form_details(self, form_id: str):
         return gfc.fetch_form_details(form_id)
 
-    @route.get("responses/{form_id}")
+    @route.get("responses/{form_id}", response=Responses)
     def get_form_responses(self, form_id: str):
         return gfc.fetch_form_responses(form_id)
 

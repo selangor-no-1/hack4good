@@ -1,6 +1,7 @@
 from pathlib import Path
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from .models import Form, Responses
 
 
 class GoogleFormConnector:
@@ -32,8 +33,8 @@ class GoogleFormConnector:
     def responses(self):
         return self.forms.responses()
 
-    def fetch_form_details(self, id: str) -> dict:
-        return self.forms.get(formId=id).execute()
+    def fetch_form_details(self, id: str) -> Form:
+        return Form.parse(self.forms.get(formId=id).execute())
 
-    def fetch_form_responses(self, id: str) -> dict:
-        return self.responses.list(formId=id, pageToken=None).execute()
+    def fetch_form_responses(self, id: str) -> Responses:
+        return Responses.parse(self.responses.list(formId=id, pageToken=None).execute())

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import * as Card from "$lib/components/ui/card";
 	import { BarChart3, Users, Hourglass } from "lucide-svelte";
+
+	export let uniqueVolunteers: number;
+	export let totalHours: number;
 </script>
 
 <div class="grid gap-4 md:grid-cols-2 pt-5 lg:grid-cols-3">
@@ -12,7 +15,7 @@
 			<Hourglass class="h-4 w-4 text-muted-foreground" />
 		</Card.Header>
 		<Card.Content>
-			<div class="text-2xl font-bold">+1,350</div>
+			<div class="text-2xl font-bold">+{totalHours}</div>
 			<p class="text-xs text-muted-foreground">+180.1% from last month</p>
 		</Card.Content>
 	</Card.Root>
@@ -24,7 +27,7 @@
 			<Users class="h-4 w-4 text-muted-foreground" />
 		</Card.Header>
 		<Card.Content>
-			<div class="text-2xl font-bold">+234</div>
+			<div class="text-2xl font-bold">+{uniqueVolunteers}</div>
 			<p class="text-xs text-muted-foreground">+19% from last month</p>
 		</Card.Content>
 	</Card.Root>

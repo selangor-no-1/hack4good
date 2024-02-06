@@ -25,6 +25,12 @@ export type Volunteer = {
 	id: string;
 	name: string;
 	date_of_birth: string;
+	date_created: string;
 	email: string;
 	contact_number: string;
+};
+
+export type Timeseries = {
+	date: string;
+	hours: number;
 };
