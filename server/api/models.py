@@ -33,6 +33,7 @@ class Volunteer(models.Model):
 class FormResponse(models.Model):
     id = models.CharField(max_length=200, primary_key=True)
     email = models.EmailField(null=True, blank=True)
+    submit_date = models.DateField(null=True, blank=True)
     content = models.CharField(max_length=5000)
     satisfaction = models.IntegerField()
     reason = models.CharField(max_length=1000)
