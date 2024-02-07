@@ -65,3 +65,7 @@ class UniqueVolunteers(Schema):
 
 class Error(Schema):
     message: str
+
+
+class Success(Schema):
+    status_code: int

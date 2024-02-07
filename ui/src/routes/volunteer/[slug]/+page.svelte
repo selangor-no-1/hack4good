@@ -14,7 +14,7 @@
 		<div
 			class="rounded-full shadow-md overflow-hidden w-32 h-32 border-4 border-white"
 		>
-			<img src="https://avatars.githubusercontent.com/u/88436113?v=4" alt="" />
+			<img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="" />
 		</div>
 		<div class="mt-4 text-center">
 			<h2 class="text-2xl font-semibold text-gray-800">{volunteer.name}</h2>
