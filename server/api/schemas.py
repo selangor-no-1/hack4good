@@ -52,6 +52,7 @@ class FormResponseSchema(ModelSchema):
         fields = (
             "id",
             "email",
+            "submit_date",
             "content",
             "satisfaction",
             "reason",

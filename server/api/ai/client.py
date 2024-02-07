@@ -52,8 +52,6 @@ def get_satisfaction_rating(
 ) -> List[FormResponseSchema]:
     res = []
     md_list = format_response_as_text(form_details, responses)
-    # _meta = [r. for r in responses.responses]
-    # return [process_form(r) for r in _responses]
     for i in range(len(md_list)):
         rsp = responses.responses[i]
         md = md_list[i]
@@ -62,6 +60,7 @@ def get_satisfaction_rating(
             FormResponseSchema(
                 id=rsp.responseId,
                 email=rsp.respondentEmail,
+                submit_date=rsp.lastSubmittedTime,
                 content=md,
                 satisfaction=ai_result.score,
                 reason=ai_result.reason,

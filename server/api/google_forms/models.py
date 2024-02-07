@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Literal, Optional, Self
 from ninja import Schema
+from dateutil import parser
 
 
 class FormItem(Schema):
@@ -59,7 +60,7 @@ class Form(Schema):
 class ResponseItem(Schema):
     responseId: str
     respondentEmail: Optional[str]
-    createTime: str
+    lastSubmittedTime: str
     answers: Dict[str, str | List[str]]
 
 
@@ -73,7 +74,7 @@ class Responses(Schema):
 
         for resp in responses:
             responseId = resp["responseId"]
-            createTime = resp["createTime"]
+            lastSubmittedTime = resp["lastSubmittedTime"]
             respondentEmail = resp.get("respondentEmail", "")
 
             answers = resp["answers"]
@@ -88,7 +89,9 @@ class Responses(Schema):
                 ResponseItem(
                     responseId=responseId,
                     respondentEmail=respondentEmail,
-                    createTime=createTime,
+                    lastSubmittedTime=parser.parse(lastSubmittedTime)
+                    .date()
+                    .strftime("%Y-%m-%d"),
                     answers=answers_processed,
                 )
             )
