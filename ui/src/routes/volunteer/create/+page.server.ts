@@ -44,6 +44,6 @@ export const actions = {
 		}
 
 		const id = await createEvent();
-		redirect(303, `/volunteer/${id}`);
+		redirect(303, `/volunteer`);
 	},
 };

@@ -29,3 +29,8 @@ pnpm run dev
 
 - [x] event needs a `start_time` and `end_time`
 - [x] track volunteer hours = sum of event(end_time - start_time) for all event in volunteer_events
+- [ ] adding volunteer to event
+- [ ] deleting volunteers
+- [ ] AI to generate the satisfaction rating
+- [ ] New table to store compressed form responses
+- [ ] Plotting the real data

@@ -3,7 +3,7 @@
 	import type { Event, Volunteer } from "$lib/types";
 	import { Input } from "$lib/components/ui/input";
 	import { Button } from "$lib/components/ui/button";
-	import { LoaderIcon } from "lucide-svelte";
+	import { LoaderIcon, UserRoundPlus } from "lucide-svelte";
 
 	export let data;
 	let isLoading = false;
@@ -51,11 +51,15 @@
 			{/if}
 		</Button>
 	</form>
-	<h2 class="text-xl font semibold mb-3">Volunteers</h2>
+	<div class="flex">
+		<h2 class="text-xl font semibold mb-3">Volunteers</h2>
+		<Button variant="outline" class="ml-auto"
+			><UserRoundPlus class="h-4 w-4 mr-3" /> Add Volunteer</Button
+		>
+	</div>
 	{#if volunteers.length > 0}
 		<DataTable data={volunteers} />
 	{:else}
 		<p>No volunteers yet... 😔</p>
-		<Button>Add Volunteer</Button>
 	{/if}
 </div>

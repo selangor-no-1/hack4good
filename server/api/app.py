@@ -1,3 +1,4 @@
+import uuid
 import datetime as _dt
 from pathlib import Path
 from collections import defaultdict
@@ -8,6 +9,7 @@ from api.models import Volunteer, Event
 from api.schemas import (
     EventSchemaCreate,
     ManhoursUnit,
+    Success,
     UniqueVolunteers,
     VolunteerContributionsSchema,
     VolunteerSchema,
@@ -38,6 +40,12 @@ class VolunteerController:
     def get_volunteer(self, id: str):
         volunteer = get_object_or_404(Volunteer, id=id)
         return volunteer
+
+    @route.delete("{id}", response=Success)
+    def delete_volunteer(self, id: uuid.UUID):
+        volunteer = get_object_or_404(Volunteer, id=id)
+        volunteer.delete()
+        return Success(status_code=200)
 
     @route.post("/", response={200: VolunteerSchema, 404: Error})
     def create_volunteer(self, props: VolunteerSchemaCreate):
