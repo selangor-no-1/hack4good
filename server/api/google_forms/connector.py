@@ -1,7 +1,12 @@
 from pathlib import Path
+from typing import List
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from concurrent.futures import ThreadPoolExecutor
+
 from .models import Form, Responses
+from ..ai import get_satisfaction_rating
+from ..schemas import FormResponseSchema
 
 
 class GoogleFormConnector:
@@ -38,3 +43,13 @@ class GoogleFormConnector:
 
     def fetch_form_responses(self, id: str) -> Responses:
         return Responses.parse(self.responses.list(formId=id, pageToken=None).execute())
+
+    def process_responses(self, id: str) -> List[FormResponseSchema]:
+        def async_fetch():
+            with ThreadPoolExecutor() as exc:
+                _form = exc.submit(self.fetch_form_details, id)
+                _resps = exc.submit(self.fetch_form_responses, id)
+                return _form.result(), _resps.result()
+
+        form, resps = async_fetch()
+        return get_satisfaction_rating(form_details=form, responses=resps)

@@ -1,7 +1,7 @@
 import datetime as _dt
-from typing import List
+from typing import List, Literal
 from ninja import Schema, ModelSchema
-from api.models import Volunteer, Event
+from api.models import FormResponse, Volunteer, Event
 
 
 class VolunteerSchema(ModelSchema):
@@ -44,6 +44,18 @@ class VolunteerSchemaCreate(ModelSchema):
     class Meta:
         model = Volunteer
         fields = ("name", "date_of_birth", "email", "contact_number")
+
+
+class FormResponseSchema(ModelSchema):
+    class Meta:
+        model = FormResponse
+        fields = (
+            "id",
+            "email",
+            "content",
+            "satisfaction",
+            "reason",
+        )
 
 
 class VolunteerContributionsSchema(Schema):
