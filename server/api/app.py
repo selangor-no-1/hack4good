@@ -5,9 +5,10 @@ from collections import defaultdict
 from datetime import datetime
 from typing import List, Optional
 from ninja_extra import NinjaExtraAPI, api_controller, route
-from api.models import Volunteer, Event
+from api.models import Volunteer, Event, FormResponse
 from api.schemas import (
     EventSchemaCreate,
+    FormResponseSchema,
     ManhoursUnit,
     Success,
     UniqueVolunteers,
@@ -167,6 +168,13 @@ class AnalyticsController:
 
         return UniqueVolunteers(unique_volunteers=len(res))
 
+    @route.get("responses", response=List[FormResponseSchema])
+    def get_form_responses(self, event_id: Optional[str] = None):
+        Q = FormResponse.objects.all()
+        if event_id:
+            Q = Q.filter(event_id=event_id)
+        return Q
+
 
 @api_controller("forms/", tags=["Google Forms Connector"], permissions=[])
 class FormsController:
@@ -177,6 +185,17 @@ class FormsController:
     @route.get("responses/{form_id}", response=Responses)
     def get_form_responses(self, form_id: str):
         return gfc.fetch_form_responses(form_id)
+
+    @route.get("ai/{event_id}/{form_id}", response=List[FormResponseSchema])
+    def get_processed_responses(self, event_id: int, form_id: str):
+        processed_responses = gfc.process_responses(form_id)
+        _ = FormResponse.objects.bulk_create(
+            [
+                FormResponse(event=Event.objects.get(id=event_id), **r.model_dump())
+                for r in processed_responses
+            ]
+        )
+        return processed_responses
 
 
 app.register_controllers(

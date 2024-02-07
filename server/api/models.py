@@ -28,3 +28,15 @@ class Volunteer(models.Model):
 
     def __str__(self):
         return f"Volunteer(name={self.name})"
+
+
+class FormResponse(models.Model):
+    id = models.CharField(max_length=200, primary_key=True)
+    email = models.EmailField(null=True, blank=True)
+    content = models.CharField(max_length=5000)
+    satisfaction = models.IntegerField()
+    reason = models.CharField(max_length=1000)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Volunteer(id={id})"
