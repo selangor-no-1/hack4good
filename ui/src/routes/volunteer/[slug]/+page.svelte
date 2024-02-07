@@ -1,6 +1,8 @@
 <script lang="ts">
 	import EventCard from "$lib/components/EventCard.svelte";
 	import type { Volunteer, Event } from "$lib/types";
+	import * as Card from "$lib/components/ui/card";
+	import * as Avatar from "$lib/components/ui/avatar";
 
 	export let data;
 
@@ -10,25 +12,40 @@
 </script>
 
 <div class="flex flex-col container items-center justify-center">
-	<div class="flex items-center space-x-16 mb-8">
-		<div
-			class="rounded-full shadow-md overflow-hidden w-32 h-32 border-4 border-white"
+	<Card.Root class="border-none">
+		<Card.Header class="flex justify-center">
+			<Card.Title class="text-lg text-center">{volunteer.name}</Card.Title>
+		</Card.Header>
+		<Card.Content
+			class="flex flex-col md:flex-row gap-2 md:gap-8 items-center justify-center"
 		>
-			<img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="" />
-		</div>
-		<div class="mt-4 text-center">
-			<h2 class="text-2xl font-semibold text-gray-800">{volunteer.name}</h2>
-			<p class="my-2 text-gray-600">Email: {volunteer.email}</p>
-			<p class="my-2 text-gray-600">
-				Contact Number: {volunteer.contact_number}
-			</p>
-			<p class="my-2 text-gray-600">Date of Birth: {volunteer.date_of_birth}</p>
-			<p class="my-2 text-gray-600">Total Volunteer Hours: {hours}</p>
-		</div>
-	</div>
-	<h4 class="text-3xl font-bold tracking-tight mt-3">Past Events</h4>
+			<Avatar.Root class="h-12 w-12">
+				<Avatar.Image src="https://xsgames.co/randomusers/avatar.php?g=male" />
+				<Avatar.Fallback>{volunteer.name}</Avatar.Fallback>
+			</Avatar.Root>
+			<div class="mt-4 text-center">
+				<div class="text-sm text-muted-foreground text-center">Email</div>
+				<div class="text-sm">{volunteer.email}</div>
+			</div>
+			<div class="mt-4 text-center">
+				<div class="text-sm text-muted-foreground">Contact</div>
+				<div class="text-sm">{volunteer.contact_number}</div>
+			</div>
+			<div class="mt-4 text-center">
+				<div class="text-sm text-muted-foreground">DoB</div>
+				<div class="text-sm">{volunteer.date_of_birth}</div>
+			</div>
+			<div class="mt-4 text-center">
+				<div class="text-sm text-muted-foreground">Hours Volunteered</div>
+				<div class="text-sm">{hours}</div>
+			</div>
+		</Card.Content>
+	</Card.Root>
+	<h4 class="text-3xl font-bold tracking-tight mt-6">Past Events</h4>
 	{#if event_list.length > 0}
-		<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8 w-full">
+		<div
+			class="grid grid-flow-col auto-rows-max gap-4 mt-8 items-center justify-center"
+		>
 			{#each event_list as event}
 				<a href="/events/{event.slug}">
 					<EventCard {event} />

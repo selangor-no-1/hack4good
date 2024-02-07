@@ -6,6 +6,18 @@
 	import DataTable from "./(components)/data-table.svelte";
 	import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-svelte";
 	import { onMount } from "svelte";
+	import { page } from "$app/stores";
+	import ProfilePage from "./[slug]/+page.svelte";
+	import * as Dialog from "$lib/components/ui/dialog";
+
+	let profileDialogOpen = false;
+
+	$: if ($page.state.profileData) {
+		profileDialogOpen = true;
+	} else {
+		profileDialogOpen = false;
+	}
+
 	export let data;
 	const { volunteers }: { volunteers: Volunteer[] } = data;
 
@@ -93,3 +105,16 @@
 		</Pagination.Item>
 	</Pagination.Content>
 </Pagination.Root>
+
+<Dialog.Root
+	open={profileDialogOpen}
+	onOpenChange={(open) => {
+		if (!open) {
+			history.back();
+		}
+	}}
+>
+	<Dialog.Content class="max-w-fit">
+		<ProfilePage data={$page.state.profileData} />
+	</Dialog.Content>
+</Dialog.Root>
