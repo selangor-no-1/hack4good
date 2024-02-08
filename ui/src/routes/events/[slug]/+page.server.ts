@@ -78,4 +78,25 @@ export const actions = {
 
 		return { status: "success" };
 	},
+
+	add: async ({ request }) => {
+		const data = await request.formData();
+		const eventSlug = data.get("eventSlug") as string;
+		const volunteerId = data.get("volunteer") as string;
+
+
+		const resp = await fetch(
+			API_ENDPOINT +
+			  `events/${eventSlug}/volunteers?volunteer_id=${volunteerId}`,
+			{
+			  method: "POST",
+			}
+		  );
+
+		if (!resp.ok) {
+			return fail(400, {
+				status: "Failed to add volunteer to event",
+			});
+		}
+	},
 };
