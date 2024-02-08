@@ -13,10 +13,17 @@ export const load = async ({ fetch, params }) => {
 		return volunteers;
 	}
 
-	const [event, volunteers] = await Promise.all([
+	async function getAllVolunteers() {
+		const res = await fetch(API_ENDPOINT + `volunteers`);
+		const volunteers = await res.json();
+		return volunteers;
+	}
+
+	const [event, eventVolunteers, allVolunteers] = await Promise.all([
 		getEventDetails(params.slug),
 		getEventVolunteers(params.slug),
+		getAllVolunteers()
 	]);
 
-	return { event, volunteers };
+	return { event, eventVolunteers, allVolunteers };
 };
