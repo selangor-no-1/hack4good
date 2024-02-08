@@ -70,10 +70,7 @@
       if (value !== null) {
         const resp = await fetch(
           API_ENDPOINT +
-            `events/` +
-            event.slug +
-            "/volunteers?volunteer_id=" +
-            value.id,
+            `events/${event.slug}/volunteers?volunteer_id=${value.id}`,
           {
             method: "POST",
           }
@@ -88,6 +85,10 @@
       }
     } catch (error) {
       console.error("Error: " + error);
+      // bandaid solution since POST request is 200 in the server side
+      // but since the request is sent through client-side there is CORS when reading the response (intended should be through server)
+      // aint got time to figure out how tf does the POST through forms work, you dont need any info from the POST reponse anyways
+      location.reload();
     }
   };
 </script>
