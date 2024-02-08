@@ -8,6 +8,7 @@
 	export let data;
 	let isLoading = false;
 	const { event, volunteers }: { event: Event; volunteers: Volunteer[] } = data;
+	import AddVolunteer from "./event-actions.svelte"
 </script>
 
 <div class="max-w-screen-xl mx-auto py-8">
@@ -62,4 +63,9 @@
 	{:else}
 		<p>No volunteers yet... 😔</p>
 	{/if}
+	<div class="container mx-auto py-10 flex-col space-y-4">
+		<div>Volunteers</div>
+		<DataTable data={event.volunteers} />
+		<AddVolunteer data={volunteers}/>
+	</div>
 </div>
