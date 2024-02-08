@@ -1,8 +1,10 @@
 <script lang="ts">
-	import type { Event } from "$lib/types";
+	import type { Event, Volunteer } from "$lib/types";
 	import DataTable from "./data-table.svelte";
+	import AddVolunteer from "./event-actions.svelte"
 	export let data;
 	const { event }: { event: Event } = data;
+	const { volunteers }: { volunteers: Volunteer[] } = data; 
 </script>
 
 <div class="max-w-screen-xl mx-auto p-8">
@@ -23,7 +25,8 @@
 		</div>
 	</div>
 </div>
-<div class="container mx-auto py-10">
-	Volunteers
+<div class="container mx-auto py-10 flex-col space-y-4">
+	<div>Volunteers</div>
 	<DataTable data={event.volunteers} />
+	<AddVolunteer data={volunteers}/>
 </div>
