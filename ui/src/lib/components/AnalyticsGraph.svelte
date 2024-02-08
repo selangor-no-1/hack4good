@@ -3,12 +3,13 @@
 	import { Button } from "$lib/components/ui/button";
 	import { Checkbox } from "$lib/components/ui/checkbox";
 	import { Label } from "$lib/components/ui/label";
-	import type { User } from "$lib/types";
-	import * as Select from "$lib/components/ui/select";
-	import CrosshairPlugin from "chartjs-plugin-crosshair";
-	import Chart from "chart.js/auto";
-	import * as Card from "$lib/components/ui/card";
 	import { Download } from "lucide-svelte";
+	import type { User } from "$lib/types";
+	import Chart from "chart.js/auto";
+	import CrosshairPlugin from "chartjs-plugin-crosshair";
+	import DateRangePicker from "$lib/components/DateRangePicker.svelte";
+	import * as Select from "$lib/components/ui/select";
+	import * as Card from "$lib/components/ui/card";
 
 	export let userData: User[];
 	let ctx: HTMLCanvasElement | undefined;
@@ -21,6 +22,8 @@
 	// register plugins
 	Chart.register(CrosshairPlugin);
 
+	// only create the Chart object once ctx is not null
+	// ie: component is mounted
 	$: if (ctx) {
 		if (chart) {
 			chart.destroy();
@@ -130,9 +133,14 @@
 	<div class="col-span-8 mt-3">
 		<Card.Root>
 			<Card.Header>
-				<Card.Title>Metrics Over Time</Card.Title>
+				<div class="flex flex-col gap-4 md:flex-row items-center mt-[-6px]">
+					<Card.Title>Metrics Over Time</Card.Title>
+					<div class="ml-auto">
+						<DateRangePicker />
+					</div>
+				</div>
 			</Card.Header>
-			<Card.Content class="h-[400px] md:h-[300px]">
+			<Card.Content class="h-[500px] md:h-[400px]">
 				<canvas bind:this={ctx} in:fade />
 			</Card.Content>
 		</Card.Root>

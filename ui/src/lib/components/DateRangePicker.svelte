@@ -16,9 +16,16 @@
 		dateStyle: "medium",
 	});
 
+	const _today = new Date();
+	const today = new CalendarDate(
+		_today.getFullYear(),
+		_today.getMonth(),
+		_today.getDate()
+	);
+
 	let value: DateRange | undefined = {
-		start: new CalendarDate(2022, 1, 20),
-		end: new CalendarDate(2022, 1, 20).add({ days: 20 }),
+		start: today.subtract({ days: 30 }),
+		end: today,
 	};
 
 	let startValue: DateValue | undefined = undefined;

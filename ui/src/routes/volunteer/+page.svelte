@@ -3,12 +3,12 @@
   import * as Pagination from "$lib/components/ui/pagination";
   import type { Volunteer } from "$lib/types";
   import { derived, writable } from "svelte/store";
-  import DataTable from "./(components)/data-table.svelte";
   import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-svelte";
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import ProfilePage from "./[slug]/+page.svelte";
   import * as Dialog from "$lib/components/ui/dialog";
+  import { VolunteerDataTable } from "$lib/components/volunteer-table";
 
   let profileDialogOpen = false;
 
@@ -62,7 +62,7 @@
 <div class="mx-auto py-10 space-y-4">
   <h2 class="text-xl font semibold mb-3">Volunteers</h2>
   {#if volunteers.length > 0}
-    <DataTable data={visibleVolunteers} />
+    <VolunteerDataTable data={visibleVolunteers} />
   {:else}
     <p>No volunteers yet... 😔</p>
   {/if}

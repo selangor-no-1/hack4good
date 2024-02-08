@@ -6,9 +6,10 @@ export type Event = {
 	location: string;
 	start_time: string;
 	end_time: string;
-	image: string;
 	date: string;
 	volunteers: Volunteer[];
+	image?: string;
+	google_form_url?: string;
 };
 
 // this is a dummy type just for to demo Chart.JS
@@ -33,4 +34,13 @@ export type Volunteer = {
 export type Timeseries = {
 	date: string;
 	hours: number;
+};
+
+export type Response = {
+	id: string;
+	email: string;
+	submit_date: string;
+	content: string;
+	satisfaction: number;
+	reason: string;
 };
