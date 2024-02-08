@@ -23,6 +23,7 @@ class EventSchemaWithoutVolunteers(ModelSchema):
             "date",
             "start_time",
             "end_time",
+            "google_form_url",
         )
 
 
@@ -38,6 +39,10 @@ class EventSchemaCreate(ModelSchema):
             "start_time",
             "end_time",
         )
+
+
+class EventSchemaUpdate(Schema):
+    google_form_url: str
 
 
 class VolunteerSchemaCreate(ModelSchema):

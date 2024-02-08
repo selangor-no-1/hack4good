@@ -12,7 +12,7 @@
 </script>
 
 <div class="flex flex-col container items-center justify-center">
-	<Card.Root class="border-none">
+	<Card.Root>
 		<Card.Header class="flex justify-center">
 			<Card.Title class="text-lg text-center">{volunteer.name}</Card.Title>
 		</Card.Header>

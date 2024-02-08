@@ -13,6 +13,7 @@ class Event(models.Model):
     start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
     volunteers = models.ManyToManyField("Volunteer", related_name="events", blank=True)
+    google_form_url = models.URLField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
         return f"Event(name={self.name})"

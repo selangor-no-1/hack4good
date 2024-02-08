@@ -3,13 +3,8 @@
 	import { Button } from "$lib/components/ui/button";
 	import { MoreHorizontal } from "lucide-svelte";
 	import { goto, preloadData, pushState } from "$app/navigation";
-	import { builderActions } from "bits-ui";
 
 	export let id: string;
-
-	const rickRoll = () => {
-		window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-	};
 
 	async function onProfileLinkClick(
 		e: MouseEvent & { currentTarget: HTMLAnchorElement }
