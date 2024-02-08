@@ -1,4 +1,5 @@
 import { API_ENDPOINT } from "$lib/config"; // this should be a secret
+import { redirect } from "@sveltejs/kit";
 
 export async function load({ params, fetch }) {
 	async function fetchVolunteerEvents(slug: string) {
@@ -26,3 +27,22 @@ export async function load({ params, fetch }) {
 		hours,
 	};
 }
+
+export const actions = {
+	delete: async ({ request, fetch }) => {
+		const data = await request.formData();
+		const id = data.get("id") as string;
+
+		async function deleteVolunteer() {
+			const resp = await fetch(API_ENDPOINT + `volunteers/${id}`, {
+				method: "DELETE",
+			});
+
+			if (!resp.ok) {
+				throw new Error("Check that the API server is running!");
+			}
+		}
+		await deleteVolunteer();
+		redirect(303, `/volunteer`);
+	},
+};
