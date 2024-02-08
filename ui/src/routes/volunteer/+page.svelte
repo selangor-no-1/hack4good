@@ -1,22 +1,11 @@
 <script lang="ts">
 	import { Button } from "$lib/components/ui/button";
-	import * as Pagination from "$lib/components/ui/pagination";
-	import type { Volunteer } from "$lib/types";
 	import { derived, writable } from "svelte/store";
-	import DataTable from "./(components)/data-table.svelte";
 	import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-svelte";
 	import { onMount } from "svelte";
-	import { page } from "$app/stores";
-	import ProfilePage from "./[slug]/+page.svelte";
-	import * as Dialog from "$lib/components/ui/dialog";
-
-	let profileDialogOpen = false;
-
-	$: if ($page.state.profileData) {
-		profileDialogOpen = true;
-	} else {
-		profileDialogOpen = false;
-	}
+	import { VolunteerDataTable } from "$lib/components/volunteer-table";
+	import type { Volunteer } from "$lib/types";
+	import * as Pagination from "$lib/components/ui/pagination";
 
 	export let data;
 	const { volunteers }: { volunteers: Volunteer[] } = data;
@@ -62,7 +51,7 @@
 <div class="mx-auto py-10 space-y-4">
 	<h2 class="text-xl font semibold mb-3">Volunteers</h2>
 	{#if volunteers.length > 0}
-		<DataTable data={visibleVolunteers} />
+		<VolunteerDataTable data={visibleVolunteers} />
 	{:else}
 		<p>No volunteers yet... 😔</p>
 	{/if}
@@ -105,16 +94,3 @@
 		</Pagination.Item>
 	</Pagination.Content>
 </Pagination.Root>
-
-<Dialog.Root
-	open={profileDialogOpen}
-	onOpenChange={(open) => {
-		if (!open) {
-			history.back();
-		}
-	}}
->
-	<Dialog.Content class="max-w-fit">
-		<ProfilePage data={$page.state.profileData} />
-	</Dialog.Content>
-</Dialog.Root>

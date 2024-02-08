@@ -3,11 +3,12 @@ import datetime as _dt
 from pathlib import Path
 from collections import defaultdict
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, List, Optional
 from ninja_extra import NinjaExtraAPI, api_controller, route
 from api.models import Volunteer, Event, FormResponse
 from api.schemas import (
     EventSchemaCreate,
+    EventSchemaUpdate,
     FormResponseSchema,
     ManhoursUnit,
     Success,
@@ -95,6 +96,14 @@ class EventController:
         props = props.model_dump()
         event = Event.objects.create(**props)
         return event
+
+    @route.post("{slug}", response=EventSchemaWithoutVolunteers)
+    def update_event(self, slug: str, props: EventSchemaUpdate):
+        props = props.model_dump()
+        _ = Event.objects.filter(slug=slug).update(
+            google_form_url=props["google_form_url"]
+        )
+        return get_object_or_404(Event, slug=slug)
 
     @route.post("{slug}/volunteers", response=VolunteerSchema)
     def add_volunteer_to_event(self, slug: str, volunteer_id: str):
@@ -186,18 +195,30 @@ class FormsController:
     def get_form_responses(self, form_id: str):
         return gfc.fetch_form_responses(form_id)
 
-    @route.get("ai/{event_id}/{form_id}", response=List[FormResponseSchema])
-    def get_processed_responses(self, event_id: int, form_id: str):
+    @route.get("ai/{event_slug}/{form_id}", response=List[FormResponseSchema])
+    def get_processed_responses(self, event_slug: str, form_id: str):
         processed_responses = gfc.process_responses(form_id)
         _ = FormResponse.objects.bulk_create(
             [
-                FormResponse(event=Event.objects.get(id=event_id), **r.model_dump())
+                FormResponse(event=Event.objects.get(slug=event_slug), **r.model_dump())
                 for r in processed_responses
             ]
         )
         return processed_responses
 
 
+@api_controller("responses/", tags=["Processed Google Form Responses"], permissions=[])
+class ResponsesController:
+    @route.get("{event_slug}", response=List[FormResponseSchema])
+    def get_responses(self, event_slug: str):
+        event = get_object_or_404(Event, slug=event_slug)
+        return FormResponse.objects.filter(event=event).all()
+
+
 app.register_controllers(
-    VolunteerController, EventController, AnalyticsController, FormsController
+    VolunteerController,
+    EventController,
+    AnalyticsController,
+    FormsController,
+    ResponsesController,
 )

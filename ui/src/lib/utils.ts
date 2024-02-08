@@ -91,3 +91,13 @@ export function createISOString(
 
 	return isoDate.toISOString();
 }
+
+export function parseGoogleFormID(url: string) {
+	const regex = /\/d\/(.*?)\/edit/;
+	const match = url.match(regex);
+	if (match && match[1]) {
+		return match[1];
+	} else {
+		return null;
+	}
+}
