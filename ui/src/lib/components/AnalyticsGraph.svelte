@@ -39,6 +39,7 @@
 						data: userData.map(({ age }) => age),
 						borderWidth: 2,
 						hidden: !showAge,
+						fill: true,
 					},
 					{
 						label: "Total Volunteers",
@@ -96,6 +97,7 @@
 							display: false,
 						},
 						ticks: {
+							display: false,
 							font: {
 								family: "Manrope Variable",
 							},
