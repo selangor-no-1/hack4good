@@ -19,7 +19,7 @@ export const load = async ({ fetch, params }) => {
 	async function getAllVolunteers() {
 		const res = await fetch(API_ENDPOINT + `volunteers`);
 		const volunteers = await res.json();
-		return volunteers;
+		return volunteers as Volunteer[];
 	}
 
 	async function getEventFormResponses(slug: string) {
@@ -84,14 +84,13 @@ export const actions = {
 		const eventSlug = data.get("eventSlug") as string;
 		const volunteerId = data.get("volunteer") as string;
 
-
 		const resp = await fetch(
 			API_ENDPOINT +
-			  `events/${eventSlug}/volunteers?volunteer_id=${volunteerId}`,
+				`events/${eventSlug}/volunteers?volunteer_id=${volunteerId}`,
 			{
-			  method: "POST",
+				method: "POST",
 			}
-		  );
+		);
 
 		if (!resp.ok) {
 			return fail(400, {
