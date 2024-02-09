@@ -12,16 +12,6 @@ export type Event = {
 	google_form_url?: string;
 };
 
-// this is a dummy type just for to demo Chart.JS
-export type User = {
-	id: number;
-	age: number;
-	firstName: string;
-	lastName: string;
-	weight: number;
-	height: number;
-};
-
 export type Volunteer = {
 	id: string;
 	name: string;
@@ -33,7 +23,7 @@ export type Volunteer = {
 
 export type Timeseries = {
 	date: string;
-	hours: number;
+	metric: number;
 };
 
 export type Response = {

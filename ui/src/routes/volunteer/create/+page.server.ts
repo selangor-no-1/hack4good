@@ -1,7 +1,7 @@
 import { superValidate } from "sveltekit-superforms/server";
 import { formSchema } from "./(utils)/schema.js";
 import { fail, redirect } from "@sveltejs/kit";
-import { API_ENDPOINT } from "$lib/config";
+import { API_ENDPOINT } from "$env/static/private";
 import type { Volunteer } from "$lib/types";
 
 export const load = async () => {

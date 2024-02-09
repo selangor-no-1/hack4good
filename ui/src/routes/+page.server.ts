@@ -1,13 +1,10 @@
-import type { Timeseries, User } from "$lib/types";
-import { API_ENDPOINT } from "$lib/config";
+import type { Timeseries, Volunteer } from "$lib/types";
+import { API_ENDPOINT } from "$env/static/private";
 
 export async function load({ fetch }) {
-	async function fetchUsers() {
-		const result = await fetch(
-			"https://dummyjson.com/users?select=age,firstName,lastName,weight,height&limit=10"
-		);
-		const { users }: { users: User[] } = await result.json();
-		return users;
+	async function fetchVolunteers() {
+		const result = await fetch(API_ENDPOINT + "volunteers");
+		return (await result.json()) as Volunteer[];
 	}
 
 	async function fetchManhours() {
@@ -15,19 +12,20 @@ export async function load({ fetch }) {
 		return (await result.json()) as Timeseries[];
 	}
 
-	async function fetchUniqueVolunteers() {
-		const result = await fetch(API_ENDPOINT + "analytics/volunteers");
-		return (await result.json()) as { unique_volunteers: number };
+	async function fetchAvgSatisfaction() {
+		const result = await fetch(API_ENDPOINT + "analytics/satisfaction");
+		return (await result.json()) as Timeseries[];
 	}
 
-	const [manhours, volunteers] = await Promise.all([
+	const [manhours, volunteers, satisfaction] = await Promise.all([
 		fetchManhours(),
-		fetchUniqueVolunteers(),
+		fetchVolunteers(),
+		fetchAvgSatisfaction(),
 	]);
 
 	return {
-		users: fetchUsers(),
 		volunteers: volunteers,
 		manhoursTimeseries: manhours,
+		satisfactionTimeseries: satisfaction,
 	};
 }

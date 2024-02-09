@@ -7,7 +7,7 @@
 	export let feedback: Response;
 </script>
 
-<Card.Root class="w-full max-w-sm">
+<Card.Root class="w-fit">
 	<Card.Header class="p-4">
 		<div class="flex flex-row">
 			<div class="flex flex-col">
