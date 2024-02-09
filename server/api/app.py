@@ -3,14 +3,14 @@ import datetime as _dt
 from pathlib import Path
 from collections import defaultdict
 from datetime import datetime
-from typing import Any, List, Optional
+from typing import List, Optional
 from ninja_extra import NinjaExtraAPI, api_controller, route
 from api.models import Volunteer, Event, FormResponse
 from api.schemas import (
     EventSchemaCreate,
     EventSchemaUpdate,
     FormResponseSchema,
-    ManhoursUnit,
+    TimeseriesUnit,
     Success,
     UniqueVolunteers,
     VolunteerContributionsSchema,
@@ -20,13 +20,14 @@ from api.schemas import (
     VolunteerSchemaCreate,
 )
 from django.shortcuts import get_object_or_404
+from django.db.models import Avg, F
 from api.utils import hours_diff
 from api.google_forms import GoogleFormConnector, Form, Responses
 
-google_creds = Path("../svc-acc.json")
+google_creds = Path("svc-acc.json")
 
 if not google_creds.exists:
-    raise ValueError("Have you put `svc-acc.json` at the root of the project?")
+    raise ValueError("Have you put `svc-acc.json` at root/server/svc-acc.json?")
 
 app = NinjaExtraAPI()
 gfc = GoogleFormConnector(google_creds)
@@ -128,7 +129,7 @@ class EventController:
 
 @api_controller("analytics/", tags=["Analytics"], permissions=[])
 class AnalyticsController:
-    @route.get("manhours", response=List[ManhoursUnit])
+    @route.get("manhours", response=List[TimeseriesUnit])
     def get_manhours(
         self,
         event_slug: Optional[str] = None,
@@ -151,7 +152,7 @@ class AnalyticsController:
 
         ts = []
         for date, hours in res.items():
-            ts.append(ManhoursUnit(date=date, hours=hours))
+            ts.append(TimeseriesUnit(date=date, metric=hours))
         return ts
 
     @route.get("volunteers", response=UniqueVolunteers)
@@ -183,6 +184,14 @@ class AnalyticsController:
         if event_id:
             Q = Q.filter(event_id=event_id)
         return Q
+
+    @route.get("satisfaction")
+    def get_satisfaction(self):
+        return list(
+            FormResponse.objects.values(date=F("submit_date")).annotate(
+                metric=Avg("satisfaction", default=0)
+            )
+        )
 
 
 @api_controller("forms/", tags=["Google Forms Connector"], permissions=[])

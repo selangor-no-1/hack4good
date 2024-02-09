@@ -7,7 +7,14 @@ from api.models import FormResponse, Volunteer, Event
 class VolunteerSchema(ModelSchema):
     class Meta:
         model = Volunteer
-        fields = ("id", "name", "date_of_birth", "email", "contact_number")
+        fields = (
+            "id",
+            "name",
+            "date_of_birth",
+            "date_created",
+            "email",
+            "contact_number",
+        )
 
 
 class EventSchemaWithoutVolunteers(ModelSchema):
@@ -70,11 +77,8 @@ class VolunteerContributionsSchema(Schema):
 
 
 class TimeseriesUnit(Schema):
-    date: _dt.date
-
-
-class ManhoursUnit(TimeseriesUnit):
-    hours: int | float
+    date: _dt.date | str
+    metric: int | float
 
 
 class UniqueVolunteers(Schema):

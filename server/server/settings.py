@@ -134,3 +134,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOWED_ALL_ORIGINS = True
 
 TOGETHER_AI_KEY = os.getenv("TOGETHER_AI_KEY")
+
+APP_NAME = os.environ.get("FLY_APP_NAME")
+ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = [f"https://{APP_NAME}.fly.dev", "http://127.0.0.1"]
+CSRF_ALLOWED_ORIGINS = [f"https://{APP_NAME}.fly.dev", "http://127.0.0.1"]
