@@ -16,19 +16,26 @@ export const load = async ({ fetch, params }) => {
 		return volunteers as Volunteer[];
 	}
 
+	async function getAllVolunteers() {
+		const res = await fetch(API_ENDPOINT + `volunteers`);
+		const volunteers = await res.json();
+		return volunteers;
+	}
+
 	async function getEventFormResponses(slug: string) {
 		const res = await fetch(API_ENDPOINT + `responses/${slug}`);
 		const responses = await res.json();
 		return responses as Response[];
 	}
 
-	const [event, volunteers, responses] = await Promise.all([
+	const [event, eventVolunteers, allVolunteers, responses] = await Promise.all([
 		getEventDetails(params.slug),
 		getEventVolunteers(params.slug),
+		getAllVolunteers(),
 		getEventFormResponses(params.slug),
 	]);
 
-	return { event, volunteers, responses };
+	return { event, eventVolunteers, allVolunteers, responses };
 };
 
 export const actions = {
@@ -70,5 +77,26 @@ export const actions = {
 		}
 
 		return { status: "success" };
+	},
+
+	add: async ({ request }) => {
+		const data = await request.formData();
+		const eventSlug = data.get("eventSlug") as string;
+		const volunteerId = data.get("volunteer") as string;
+
+
+		const resp = await fetch(
+			API_ENDPOINT +
+			  `events/${eventSlug}/volunteers?volunteer_id=${volunteerId}`,
+			{
+			  method: "POST",
+			}
+		  );
+
+		if (!resp.ok) {
+			return fail(400, {
+				status: "Failed to add volunteer to event",
+			});
+		}
 	},
 };
