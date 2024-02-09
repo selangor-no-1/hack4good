@@ -1,65 +1,44 @@
 # hack4good
 
-### Environment Variables
+![landing](.github/assets/landing.png)
 
-This app requires 2 secrets to run.
+## About
 
-For development, you may put both files in the root of the project.
+We built an AI powered volunteer analytics platform, providing the means for NPO's to collect and store high quality feedback data.
 
-1. `.env` - a dotenv file containing the [together AI](https://www.together.ai/) key, which is used to call Mixtral
+### Use the tools you love!
 
-```
-TOGETHER_AI_KEY = ...
-```
+This tool is integrated with **Google Forms**. We've all used it before and we know it's good, so why reinvent the wheel?
 
-2. `svc-acc.json` - service account credentials generated from the Google Cloud Console for interacting programatically with the Google Forms API
+You just need to provide the permissions & link, we do all the work ingesting, storing & quantifying the responses. For this purpose, we use the
+**Mixtral-8x7B-v0.1** to rate volunteer satisfaction $\in [1,5]$, along with providing a qualitative reason for this rating based on their responses.
 
-### Google Forms Integration
+This way, there isn't a need to enforce strict form schemas or mundane **yes/no** questions that can be easily parsed progamatically.
 
-For this service to subscribe to your Google Form details & user responses, you need to add this email to it
+In terms of cost, we've ingested over > 100 sample responses and spent 1 cent, so it's definitely cost effective.
 
-`hack4good@hack4good-413206.iam.gserviceaccount.com`
+<!-- Video -->
 
-as a **Collaborator**
+### Minimal UI & Interactive Visualisations
+
+Distraction free & user friendly
+
+<!-- Video -->
+
+## Developing
+
+Please refer to the individual `README.md`'s within `ui/` and `server/`
+
+## Tech Stack
 
 ### Backend
 
 **Python** with Django, SQLite, Pydantic, OpenAI, Instructor, Google Forms API managed with **Poetry**
 
-> This project assumes Python 3.10 or newer because we use the `|` operator for type hinting. Also, you may need to install **Poetry**.
-
-```bash
-cd server/
-
-# setup
-poetry install
-
-poetry run python manage.py makemigrations
-poetry run python manage.py migrate
-poetry run python manage.py loaddata sample_data.json
-
-# run the server
-poetry run python manage.py runserver
-```
+Deployed on [fly.io](fly.io)
 
 ### Frontend
 
 **Svelte/Typescript** with SvelteKit, TailwindCSS, shadcn/ui, Marked, Chart.JS, Zod
 
-```bash
-cd ui/
-pnpm i
-pnpm run dev
-```
-
-<!-- **todo**
-
-- [x] event needs a `start_time` and `end_time`
-- [x] track volunteer hours = sum of event(end_time - start_time) for all event in volunteer_events
-- [x] adding volunteer to event
-- [x] deleting volunteers
-- [x] AI to generate the satisfaction rating
-- [x] New table to store compressed form responses
-- [x] New endpoint to update an event with its google form url
-- [x] Form action logic to POST a URL to **update the event object with its url** then **generate, and render the processed responses**
-- [ ] Plotting the real data -->
+Deployed on [Vercel](vercel.com)
