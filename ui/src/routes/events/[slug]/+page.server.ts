@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from "$lib/config";
+import { API_ENDPOINT } from "$env/static/private";
 import type { Event, Volunteer, Response } from "$lib/types";
 import { parseGoogleFormID } from "$lib/utils.js";
 import { fail } from "@sveltejs/kit";

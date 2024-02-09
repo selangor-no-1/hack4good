@@ -24,23 +24,22 @@ as a **Collaborator**
 
 ### Backend
 
-**Python** with Django, SQLite, Pydantic, OpenAI, Instructor, Google Forms API
+**Python** with Django, SQLite, Pydantic, OpenAI, Instructor, Google Forms API managed with **Poetry**
 
-> This project assumes Python 3.10 or newer because we use the `|` operator for type hinting
+> This project assumes Python 3.10 or newer because we use the `|` operator for type hinting. Also, you may need to install **Poetry**.
 
 ```bash
-virtualenv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-
 cd server/
+
 # setup
-python manage.py makemigrations
-python manage.py migrate
-python manage.py loaddata sample_data.json
+poetry install
+
+poetry run python manage.py makemigrations
+poetry run python manage.py migrate
+poetry run python manage.py loaddata sample_data.json
 
 # run the server
-python manage.py runserver
+poetry run python manage.py runserver
 ```
 
 ### Frontend

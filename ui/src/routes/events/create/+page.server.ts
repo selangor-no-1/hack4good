@@ -1,7 +1,7 @@
 import { superValidate } from "sveltekit-superforms/server";
 import { formSchema } from "./(utils)/schema";
 import { fail, redirect } from "@sveltejs/kit";
-import { API_ENDPOINT } from "$lib/config";
+import { API_ENDPOINT } from "$env/static/private";
 import { createISOString } from "$lib/utils";
 import type { Event } from "$lib/types";
 

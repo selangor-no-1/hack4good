@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
 import { TRUNCATE_AT_CHAR } from "$lib/config";
+import type { Timeseries, Volunteer } from "$lib/types";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -100,4 +101,23 @@ export function parseGoogleFormID(url: string) {
 	} else {
 		return null;
 	}
+}
+
+export function reduceVolunteers(data: Volunteer[]): Timeseries[] {
+	const metricMap: Map<string, number> = new Map();
+	for (const person of data) {
+		const dateCreated = person.date_created;
+		if (metricMap.has(dateCreated)) {
+			metricMap.set(dateCreated, metricMap.get(dateCreated)! + 1);
+		} else {
+			metricMap.set(dateCreated, 1);
+		}
+	}
+
+	const result: Timeseries[] = [];
+	metricMap.forEach((value, key) => {
+		result.push({ date: key, metric: value });
+	});
+
+	return result;
 }

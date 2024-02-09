@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from "$lib/config"; // this should be a secret
+import { API_ENDPOINT } from "$env/static/private"; // this should be a secret
 import { redirect } from "@sveltejs/kit";
 
 export async function load({ params, fetch }) {
