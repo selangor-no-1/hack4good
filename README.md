@@ -20,6 +20,7 @@ This way, there isn't a need to enforce strict form schemas or mundane **yes/no*
 
 https://github.com/selangor-no-1/hack4good/assets/76434265/cbfbc108-b8ee-40e5-b984-b5aee79ad090
 
+> To give us permission to access your forms, you need to add `hack4good@hack4good-413206.iam.gserviceaccount.com` as a **Collaborator**
 ### Minimal UI & Interactive Visualisations
 
 Distraction free, user friendly & fully mobile responsive.
