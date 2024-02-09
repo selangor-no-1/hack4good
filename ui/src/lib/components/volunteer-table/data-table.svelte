@@ -5,25 +5,20 @@
 		Render,
 		Subscribe,
 	} from "svelte-headless-table";
-	import { page } from "$app/stores";
-	import { type Readable } from "svelte/store";
+	import { readable, type Readable } from "svelte/store";
 	import type { Volunteer } from "$lib/types";
 	import DataTableActions from "./data-table-actions.svelte";
-	import ProfilePage from "../../../routes/volunteer/[slug]/+page.svelte";
 	import * as Table from "$lib/components/ui/table";
-	import * as Dialog from "$lib/components/ui/dialog";
 
-	export let data: Readable<Volunteer[]>;
+	export let data: Volunteer[] | Readable<Volunteer[]>;
 
-	let profileDialogOpen = false;
-
-	$: if ($page.state.profileData) {
-		profileDialogOpen = true;
-	} else {
-		profileDialogOpen = false;
+	function isReadable(data: any): data is Readable<Volunteer[]> {
+		return typeof data !== "undefined" && typeof data.subscribe === "function";
 	}
 
-	const table = createTable(data);
+	const table = isReadable(data)
+		? createTable(data)
+		: createTable(readable(data));
 
 	const columns = table.createColumns([
 		table.column({
@@ -89,16 +84,3 @@
 		</Table.Body>
 	</Table.Root>
 </div>
-
-<Dialog.Root
-	open={profileDialogOpen}
-	onOpenChange={(open) => {
-		if (!open) {
-			history.back();
-		}
-	}}
->
-	<Dialog.Content class="max-w-fit">
-		<ProfilePage data={$page.state.profileData} />
-	</Dialog.Content>
-</Dialog.Root>
