@@ -147,7 +147,10 @@ class AnalyticsController:
         res = defaultdict(lambda: 0)
         for event in Q.all():
             event_date = event.date
-            total_hrs = hours_diff(end_time=event.end_time, start_time=event.start_time)
+            event_volunteers = event.volunteers.all()
+            total_hrs = hours_diff(
+                end_time=event.end_time, start_time=event.start_time
+            ) * len(event_volunteers)
             res[event_date] += total_hrs
 
         ts = []

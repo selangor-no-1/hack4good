@@ -34,8 +34,17 @@
 	</div>
 </div>
 
-<AnalyticsGraph title="Active Volunteers" data={volunteerTimeseries} />
+{#key "activeVolunteers"}
+	<AnalyticsGraph title="Active Volunteers" data={volunteerTimeseries} />
+{/key}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-	<AnalyticsGraph title="Volunteer Hours" data={manhoursTimeseries} />
-	<AnalyticsGraph title="Average Satisfaction" data={satisfactionTimeseries} />
+	{#key "hours"}
+		<AnalyticsGraph title="Volunteer Hours" data={manhoursTimeseries} />
+	{/key}
+	{#key "satisfaction"}
+		<AnalyticsGraph
+			title="Average Satisfaction"
+			data={satisfactionTimeseries}
+		/>
+	{/key}
 </div>
