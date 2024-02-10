@@ -12,6 +12,8 @@
 
 	let ctx: HTMLCanvasElement | undefined;
 	let chart: Chart | undefined;
+	let downloadReady = false;
+	let b64: string | undefined;
 
 	// register plugins
 	Chart.register(CrosshairPlugin);
@@ -39,6 +41,12 @@
 				],
 			},
 			options: {
+				animation: {
+					onComplete: function () {
+						downloadReady = true;
+						b64 = ctx?.toDataURL();
+					},
+				},
 				plugins: {
 					tooltip: {
 						enabled: true,
@@ -109,28 +117,26 @@
 	}
 </script>
 
-<section>
-	<div class="w-full mt-3">
-		<Card.Root>
-			<Card.Header>
-				<Card.Title class="flex justify-center items-center">
-					<h1>{title}</h1>
-					<div class="ml-auto flex gap-2">
-						{#if ctx}
-							<a href={ctx.toDataURL()} target="_blank" download="graph.png">
-								<Button variant="outline" class="text-xs"
-									><Download class="h-4 w-4 md:mr-3" />
-									<span class="hidden md:block">Download</span>
-								</Button>
-							</a>
-						{/if}
-					</div>
-				</Card.Title>
-			</Card.Header>
-			<Card.Content class="h-[250px]">
-				<canvas bind:this={ctx} in:fade />
-			</Card.Content>
-			<Card.Footer class="-mt-5 md:-mt-5"></Card.Footer>
-		</Card.Root>
-	</div>
-</section>
+<div class="w-full mt-3">
+	<Card.Root>
+		<Card.Header>
+			<Card.Title class="flex justify-center items-center">
+				<h1>{title}</h1>
+				<div class="ml-auto flex gap-2">
+					<a href={b64} target="_blank" download="graph.png">
+						<Button
+							variant="outline"
+							class="text-xs"
+							disabled={!downloadReady && ctx !== undefined}
+							><Download class="h-4 w-4 md:mr-3" />
+							<span class="hidden md:block">Download</span>
+						</Button>
+					</a>
+				</div>
+			</Card.Title>
+		</Card.Header>
+		<Card.Content class="h-[250px] w-full">
+			<canvas bind:this={ctx} in:fade />
+		</Card.Content>
+	</Card.Root>
+</div>
