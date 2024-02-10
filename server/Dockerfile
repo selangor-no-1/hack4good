@@ -7,6 +7,10 @@ ENV PYTHONUNBUFFERED 1
 
 RUN mkdir -p /code
 
+RUN apt-get update && apt-get install -y \
+    sqlite3 \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /code
 
 RUN pip install poetry
@@ -15,10 +19,8 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --only main --no-root --no-interaction
 COPY . /code
 
-RUN python manage.py makemigrations
-RUN python manage.py migrate
-RUN python manage.py loaddata sample_data.json
+RUN chmod +x startup.sh
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "server.wsgi"]
+ENTRYPOINT [ "./startup.sh" ]
