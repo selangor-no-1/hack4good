@@ -31,6 +31,7 @@
   "dependencies": {
     "@fontsource-variable/manrope": "^5.0.18",
     "@internationalized/date": "^3.5.1",
+    "axios": "^1.6.7",
     "bits-ui": "^0.16.0",
     "chart.js": "^4.4.1",
     "chartjs-plugin-crosshair": "^2.0.0",

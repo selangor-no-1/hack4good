@@ -4,6 +4,7 @@ import { fail, redirect } from "@sveltejs/kit";
 import { API_ENDPOINT } from "$env/static/private";
 import { createISOString } from "$lib/utils";
 import type { Event } from "$lib/types";
+import axios from "axios";
 
 export const load = async () => {
 	return {
@@ -38,18 +39,13 @@ export const actions = {
 		};
 
 		async function createEvent() {
-			const resp = await fetch(API_ENDPOINT + "events/", {
-				method: "POST",
-				body: JSON.stringify(data),
-			});
-
-			if (!resp.ok) {
+			try {
+				const resp = await axios.post(API_ENDPOINT + "events/", data);
+				const event = resp.data as Event;
+				return event.slug;
+			} catch (err) {
 				throw new Error("Check that the API server is running!");
 			}
-
-			const event = (await resp.json()) as Event;
-
-			return event.slug;
 		}
 
 		const slug = await createEvent();

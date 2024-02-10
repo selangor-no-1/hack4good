@@ -3,6 +3,7 @@ import { formSchema } from "./(utils)/schema.js";
 import { fail, redirect } from "@sveltejs/kit";
 import { API_ENDPOINT } from "$env/static/private";
 import type { Volunteer } from "$lib/types";
+import axios from "axios";
 
 export const load = async () => {
 	return {
@@ -29,21 +30,16 @@ export const actions = {
 		};
 
 		async function createEvent() {
-			const resp = await fetch(API_ENDPOINT + "volunteers/", {
-				method: "POST",
-				body: JSON.stringify(data),
-			});
-
-			if (!resp.ok) {
+			try {
+				const resp = await axios.post(API_ENDPOINT + "volunteers/", data);
+				const volunteer = resp.data as Volunteer;
+				return volunteer.id;
+			} catch (err) {
 				throw new Error("Check that the API server is running!");
 			}
-
-			const volunteer = (await resp.json()) as Volunteer;
-
-			return volunteer.id;
 		}
 
-		const id = await createEvent();
+		const _ = await createEvent();
 		redirect(303, `/volunteer`);
 	},
 };
